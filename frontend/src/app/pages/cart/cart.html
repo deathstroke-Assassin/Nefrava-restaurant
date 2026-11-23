@@ -1,0 +1,46 @@
+<header class="navbar">
+  <a class="brand" routerLink="/" aria-label="Nefrava home"><img class="brand-logo" src="/nefrava-crest-transparent.png" alt="NEFRAVA" /></a>
+  <nav><a routerLink="/">{{ 'Home' | i18n }}</a><a routerLink="/favorites">{{ 'Favorites' | i18n }} ({{ store.favorites().length }})</a><a routerLink="/cart" class="active">{{ 'Cart' | i18n }} ({{ store.cartCount() }})</a></nav>
+</header>
+<main class="page">
+  <p class="eyebrow">{{ 'YOUR SELECTION' | i18n }}</p><h1>{{ 'Your cart' | i18n }}</h1>
+  <p class="intro">{{ 'Review your selections before placing your order.' | i18n }}</p>
+  <section class="empty" *ngIf="store.cart().length === 0"><h2>{{ 'Your cart is empty' | i18n }}</h2><p>{{ 'Discover the menu and add a dish to your order.' | i18n }}</p><a class="button" routerLink="/">{{ 'Explore the menu' | i18n }}</a></section>
+  <ng-container *ngIf="store.cart().length">
+    <div class="cart-table-wrap">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th scope="col">{{ 'Item' | i18n }}</th>
+            <th scope="col">{{ 'Unit price' | i18n }}</th>
+            <th scope="col">{{ 'Quantity' | i18n }}</th>
+            <th scope="col">{{ 'Subtotal' | i18n }}</th>
+            <th scope="col"><span class="visually-hidden">{{ 'Action' | i18n }}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of store.cart()">
+            <td class="item-column" [attr.data-label]="'Item' | i18n">
+              <div class="item-cell">
+                <a [routerLink]="['/items', item._id]" class="photo"><img [src]="store.photoUrl(item)" [alt]="item.name | i18n" loading="lazy" decoding="async" (error)="$any($event.target).style.display='none'"></a>
+                <a class="item-name" [routerLink]="['/items', item._id]">{{ item.name | i18n }}</a>
+              </div>
+            </td>
+            <td [attr.data-label]="'Unit price' | i18n">{{ item.price | number:'1.2-2' }} EGP</td>
+            <td [attr.data-label]="'Quantity' | i18n">
+              <label class="visually-hidden" [for]="'quantity-' + item._id">{{ 'Quantity' | i18n }}</label>
+              <input class="quantity-input" [id]="'quantity-' + item._id" type="number" min="1" step="1" [ngModel]="item.quantity" (ngModelChange)="changeQuantity(item._id, $event)" [attr.aria-label]="'Quantity' | i18n">
+            </td>
+            <td class="subtotal-column" [attr.data-label]="'Subtotal' | i18n"><strong>{{ item.price * item.quantity | number:'1.2-2' }} EGP</strong></td>
+            <td class="action-column" [attr.data-label]="'Action' | i18n"><button class="remove" type="button" (click)="store.removeFromCart(item._id)">{{ 'Remove' | i18n }}</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <section class="summary" [attr.aria-label]="'Cart summary' | i18n">
+      <div class="summary-total"><span>{{ store.cartCount() }} {{ 'item(s)' | i18n }}</span><strong>{{ store.cartTotal() | number:'1.2-2' }} EGP</strong></div>
+      <a class="button" routerLink="/buy">{{ 'Continue to checkout' | i18n }} <span aria-hidden="true">→</span></a>
+    </section>
+  </ng-container>
+</main>
+<app-store-footer></app-store-footer>

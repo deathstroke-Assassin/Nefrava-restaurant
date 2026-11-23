@@ -1,0 +1,342 @@
+<header class="navbar">
+  <a class="brand" routerLink="/">
+    <img class="brand-logo" src="/nefrava-crest-transparent.png" alt="NEFRAVA" />
+  </a>
+
+  <button
+    class="mobile-menu-toggle"
+    type="button"
+    (click)="toggleMobileMenu()"
+    [attr.aria-expanded]="mobileMenuOpen()"
+    aria-controls="site-navigation"
+    [attr.aria-label]="(mobileMenuOpen() ? 'Close menu' : 'Open menu') | i18n"
+  >
+    <span aria-hidden="true">{{ mobileMenuOpen() ? '×' : '☰' }}</span>
+  </button>
+
+  <nav id="site-navigation" [class.is-open]="mobileMenuOpen()" (click)="closeMobileMenu()">
+    <a href="#home">{{ 'Home' | i18n }}</a
+    ><a href="#menu">{{ 'Menu' | i18n }}</a
+    ><a href="#events">{{ 'Events' | i18n }}</a> <a href="#story">{{ 'Our Story' | i18n }}</a
+    ><a href="#gallery">{{ 'Gallery' | i18n }}</a
+    ><a href="#contact">{{ 'Contact' | i18n }}</a>
+    <a routerLink="/favorites" class="order-link"
+      >{{ 'Favorites' | i18n }} <span>{{ store.favorites().length }}</span></a
+    >
+    <a routerLink="/cart" class="order-link"
+      >{{ 'Cart' | i18n }} <span>{{ store.cartCount() }}</span></a
+    >
+  </nav>
+</header>
+
+<main>
+  <section id="home" class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">{{ 'A TABLE BETWEEN THREE CULTURES' | i18n }}</p>
+      <h1>
+        <em>{{ 'The Art of Tradition,' | i18n }}<br />{{ 'Served with Elegance.' | i18n }}</em>
+      </h1>
+      <p class="hero-description">
+        {{
+          'Egyptian warmth, French finesse, and a little Russian soul — gathered around one table in Cairo.'
+            | i18n
+        }}
+      </p>
+      <div class="hero-actions linkstyler">
+        <a href="#menu" class="shop-button">{{ 'Explore Our Menu' | i18n }} <span>↗</span></a
+        ><a href="#story" class="story-link">{{ 'Our Story' | i18n }} <span>→</span></a>
+      </div>
+      <p class="hero-note">
+        <span>✳</span> {{ 'A generous table. A little ceremony. Always room for one more.' | i18n }}
+      </p>
+    </div>
+    <div class="hero-mark">
+      <img
+        src="/nefrava-crest-transparent.png"
+        [alt]="'Nefrava crest in burgundy and antique gold' | i18n"
+      />
+    </div>
+  </section>
+
+  <section id="menu" class="categories-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">{{ 'FROM OUR KITCHEN' | i18n }}</p>
+        <h2>{{ 'A menu with many homes' | i18n }}</h2>
+      </div>
+      <span class="category-count">
+        {{ categories().length }} {{ 'courses & traditions' | i18n }}
+      </span>
+    </div>
+
+    <p *ngIf="loading()" class="status-message">
+      {{ 'Preparing the menu…' | i18n }}
+    </p>
+
+    <div *ngIf="error()" class="status-message error">
+      {{ error() | i18n }}
+      <button (click)="loadCategories()">{{ 'Try again' | i18n }}</button>
+    </div>
+
+    <p *ngIf="!loading() && !error() && categories().length === 0" class="status-message">
+      {{ 'Our menu is being prepared. Please check back soon.' | i18n }}
+    </p>
+
+    <div class="menu-filters" *ngIf="!loading() && !error()">
+      <button
+        type="button"
+        [class.selected]="selectedCategory() === 'all'"
+        (click)="selectCategory('all')"
+      >
+        {{ 'All our table' | i18n }}
+      </button>
+      <button
+        type="button"
+        *ngFor="let category of categories()"
+        [class.selected]="selectedCategory() === category._id"
+        (click)="selectCategory(category._id)"
+      >
+        {{ category.name | i18n }}
+      </button>
+    </div>
+  </section>
+
+  <section id="products" class="products-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">{{ 'A LITTLE OF EVERYWHERE' | i18n }}</p>
+        <h2>{{ 'From our table' | i18n }}</h2>
+      </div>
+      <span class="category-count">{{ items().length }} {{ 'dishes & drinks' | i18n }}</span>
+    </div>
+
+    <p *ngIf="loadingItems()" class="status-message">
+      {{ 'Our kitchen is setting the table…' | i18n }}
+    </p>
+
+    <div *ngIf="itemsError()" class="status-message error">
+      {{ itemsError() | i18n }}
+      <button (click)="loadItems()">{{ 'Try again' | i18n }}</button>
+    </div>
+
+    <p *ngIf="!loadingItems() && !itemsError() && items().length === 0" class="status-message">
+      {{ 'There are no dishes listed just now. Please return soon.' | i18n }}
+    </p>
+
+    <section
+      class="product-category"
+      *ngFor="let category of categories()"
+      [id]="'category-' + category._id"
+    >
+      <ng-container *ngIf="getItemsByCategory(category._id).length > 0">
+        <div class="menu-category-heading">
+          <h3 class="product-category-title">{{ category.name | i18n }}</h3>
+          <p>{{ category.description || '' | i18n }}</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card" *ngFor="let item of getItemsByCategory(category._id)">
+            <a
+              class="product-card-link"
+              [routerLink]="['/items', item._id]"
+              [attr.aria-label]="'View details →' | i18n"
+            >
+              <div class="product-art">
+                <img
+                  [src]="photoUrl(item)"
+                  [alt]="'Representative dish photo from Nefrava' | i18n"
+                  (error)="$any($event.target).style.display = 'none'"
+                />
+                <span class="product-placeholder"><span>✿</span><small>NEFRAVA</small></span>
+                <span *ngIf="item.isAvailable === false" class="unavailable-label">{{
+                  'Currently unavailable' | i18n
+                }}</span>
+              </div>
+
+              <div class="product-info">
+                <p class="product-category-name">
+                  {{ item.isFeatured ? ('HOUSE FAVOURITE' | i18n) : (category.name | i18n) }}
+                </p>
+                <h4>{{ item.name | i18n }}</h4>
+                <p class="product-description">{{ item.description | i18n }}</p>
+                <p class="product-price">{{ item.price | number: '1.0-0' }} <small>EGP</small></p>
+                <span class="view-details">{{ 'View details →' | i18n }}</span>
+              </div>
+            </a>
+            <div class="card-actions">
+              <button type="button" (click)="toggleFavorite(item)">
+                {{ (store.isFavorite(item._id) ? '♥ Saved' : '♡ Favorite') | i18n }}
+              </button>
+              <button
+                type="button"
+                [disabled]="item.isAvailable === false"
+                (click)="addToCart(item)"
+              >
+                {{
+                  item.isAvailable === false
+                    ? ('Currently unavailable' | i18n)
+                    : ('Add to cart' | i18n)
+                }}
+              </button>
+            </div>
+          </article>
+        </div>
+      </ng-container>
+    </section>
+
+    <section *ngIf="!loadingItems() && uncategorizedItems.length > 0">
+      <h3 class="product-category-title">{{ 'Other dishes' | i18n }}</h3>
+
+      <div class="product-grid">
+        <article class="product-card" *ngFor="let item of uncategorizedItems">
+          <a
+            class="product-card-link"
+            [routerLink]="['/items', item._id]"
+            [attr.aria-label]="'View details →' | i18n"
+          >
+            <div class="product-art">
+              <img
+                [src]="photoUrl(item)"
+                [alt]="'Representative dish photo from Nefrava' | i18n"
+                (error)="$any($event.target).style.display = 'none'"
+              />
+              <span class="product-placeholder"><span>✿</span><small>NEFRAVA</small></span>
+              <span *ngIf="item.isAvailable === false" class="unavailable-label">{{
+                'Currently unavailable' | i18n
+              }}</span>
+            </div>
+
+            <div class="product-info">
+              <h4>{{ item.name | i18n }}</h4>
+              <p class="product-description">{{ item.description | i18n }}</p>
+              <p class="product-price">{{ item.price | number: '1.0-0' }} <small>EGP</small></p>
+              <span class="view-details">{{ 'View details →' | i18n }}</span>
+            </div>
+          </a>
+          <div class="card-actions">
+            <button type="button" (click)="toggleFavorite(item)">
+              {{ (store.isFavorite(item._id) ? '♥ Saved' : '♡ Favorite') | i18n }}
+            </button>
+            <button type="button" [disabled]="item.isAvailable === false" (click)="addToCart(item)">
+              {{
+                item.isAvailable === false
+                  ? ('Currently unavailable' | i18n)
+                  : ('Add to cart' | i18n)
+              }}
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </section>
+
+  <section id="events" class="editorial-band">
+    <p class="eyebrow">{{ 'AT NEFRAVA' | i18n }}</p>
+    <h2>
+      {{ 'Good food makes' | i18n }}<br /><em>{{ 'an occasion of any evening.' | i18n }}</em>
+    </h2>
+    <p>
+      {{
+        'Seasonal suppers, long-table celebrations, and intimate gatherings are part of the way we host. Ask us about arranging a private table.'
+          | i18n
+      }}
+    </p>
+    <a href="#contact" class="text-link">{{ 'Plan an occasion' | i18n }} <span>↗</span></a>
+  </section>
+
+  <section id="story" class="story-section">
+    <div
+      class="story-photo"
+      role="img"
+      [attr.aria-label]="'Warmly lit dining room set for an evening meal' | i18n"
+    ></div>
+    <div class="story-copy">
+      <p class="eyebrow">{{ 'THREE INFLUENCES. ONE WELCOME.' | i18n }}</p>
+      <h2>{{ 'A place for the stories that happen over supper.' | i18n }}</h2>
+      <p>
+        {{
+          'Nefrava brings the Egyptian table’s generous spirit into conversation with the quiet craft of a French bistro and the comfort of a Russian kitchen. We cook for lingering: another pour, another plate, another story.'
+            | i18n
+        }}
+      </p>
+      <a href="#menu" class="text-link">{{ 'Meet us at the table' | i18n }} <span>→</span></a>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery-section">
+    <p class="eyebrow">{{ 'A GLIMPSE OF THE TABLE' | i18n }}</p>
+    <h2>{{ 'Made for staying awhile' | i18n }}</h2>
+    <div class="gallery-grid">
+      <div
+        class="gallery-image gallery-one"
+        role="img"
+        [attr.aria-label]="'A warmly lit restaurant dining room' | i18n"
+      ></div>
+      <div
+        class="gallery-image gallery-two"
+        role="img"
+        [attr.aria-label]="'A plated seasonal meal' | i18n"
+      ></div>
+      <div
+        class="gallery-image gallery-three"
+        role="img"
+        [attr.aria-label]="'A candlelit table set for dinner' | i18n"
+      ></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="contact-copy">
+      <p class="eyebrow">{{ 'COME AS YOU ARE' | i18n }}</p>
+      <h2>{{ 'We’ll set a place for you.' | i18n }}</h2>
+      <p>
+        {{
+          'Our Cairo address, phone, and social pages will be added here once confirmed. Send us a note in the meantime.'
+            | i18n
+        }}
+      </p>
+      <p class="contact-placeholder">
+        {{ 'Address and phone to be announced · Cairo, Egypt' | i18n }}
+      </p>
+    </div>
+    <form class="contact-form" (submit)="submitContact($event)">
+      <label
+        >{{ 'Your name' | i18n
+        }}<input
+          type="text"
+          [value]="contactName()"
+          (input)="contactName.set($any($event.target).value)"
+          autocomplete="name"
+          required
+          maxlength="100"
+      /></label>
+      <label
+        >{{ 'Email address' | i18n
+        }}<input
+          type="email"
+          [value]="contactEmail()"
+          (input)="contactEmail.set($any($event.target).value)"
+          autocomplete="email"
+          required
+          maxlength="254"
+      /></label>
+      <label
+        >{{ 'Your message' | i18n
+        }}<textarea
+          [value]="contactMessage()"
+          (input)="contactMessage.set($any($event.target).value)"
+          rows="4"
+          required
+          maxlength="1500"
+        ></textarea>
+      </label>
+      <p *ngIf="contactError()" class="form-message error">{{ contactError() | i18n }}</p>
+      <p *ngIf="contactSuccess()" class="form-message success">{{ contactSuccess() | i18n }}</p>
+      <button type="submit" class="shop-button" [disabled]="contactBusy()">
+        {{ (contactBusy() ? 'Sending…' : 'Send a note') | i18n }}
+      </button>
+    </form>
+  </section>
+</main>
+
+<app-store-footer></app-store-footer>

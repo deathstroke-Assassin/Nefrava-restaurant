@@ -1,0 +1,25 @@
+<footer class="store-footer">
+  <div class="footer-main">
+    <section class="footer-brand">
+      <a class="brand" routerLink="/">
+        <img class="brand-logo" src="/nefrava-crest-transparent.png" alt="NEFRAVA" />
+      </a>
+      <p>{{ 'The Art of Tradition, Served with Elegance.' | i18n }}</p>
+    </section>
+    <nav class="footer-links" [attr.aria-label]="'Restaurant links' | i18n">
+      <h2>{{ 'Explore' | i18n }}</h2>
+      <a routerLink="/">{{ 'Home' | i18n }}</a>
+      <a routerLink="/" fragment="menu">{{ 'Menu' | i18n }}</a>
+      <a routerLink="/" fragment="story">{{ 'Our Story' | i18n }}</a>
+      <a routerLink="/" fragment="contact">{{ 'Contact' | i18n }}</a>
+    </nav>
+    <section class="footer-order">
+      <h2>{{ 'At your service' | i18n }}</h2>
+      <p>{{ 'For a table, a celebration, or a question, send us a note. Our address and phone will be shared once confirmed.' | i18n }}</p>
+    </section>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 NEFRAVA</span>
+    <span>Mohamed Al Khayat @2026</span>
+  </div>
+</footer>

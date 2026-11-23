@@ -1,0 +1,322 @@
+
+<div class="items-page">
+  <header class="page-header">
+    <div>
+      <a routerLink="/dashboard" class="back-link">{{ 'Dashboard' | i18n }} →</a>
+      <p class="eyebrow">{{ 'MENU MANAGEMENT' | i18n }}</p>
+      <h1>{{ 'Menu items' | i18n }}</h1>
+      <p class="page-description">
+        {{ 'Manage menu descriptions, EGP prices, photos and availability.' | i18n }}
+      </p>
+    </div>
+
+    <button class="primary-button" type="button" (click)="openCreate()">
+      <span>＋</span> {{ 'Add a new item' | i18n }}
+    </button>
+  </header>
+
+  <div class="notice error-notice" *ngIf="error()">
+    {{ error() | i18n }}
+    <button type="button" (click)="loadItems(); loadCategories()">{{ 'Try again' | i18n }}</button>
+    <button type="button" (click)="error.set('')" aria-label="Dismiss">×</button>
+  </div>
+
+  <div class="notice success-notice" *ngIf="success()">
+    {{ success() | i18n }}
+    <button type="button" (click)="success.set('' )" aria-label="Dismiss">×</button>
+  </div>
+
+  <section class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-label">{{ 'Total items' | i18n }}</span>
+      <strong>{{ items().length }}</strong>
+      <span class="summary-note">{{ 'Across your menu' | i18n }}</span>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-label">{{ 'Available items' | i18n }}</span>
+      <strong>{{ availableCount() }}</strong>
+      <span class="summary-note">{{ 'Ready to order' | i18n }}</span>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-label">{{ 'House favourites' | i18n }}</span>
+      <strong>{{ featuredCount() }}</strong>
+      <span class="summary-note">{{ 'Highlighted on the menu' | i18n }}</span>
+    </article>
+  </section>
+
+  <section class="menu-panel">
+      <div class="panel-heading">
+      <div>
+        <h2>{{ 'Your menu' | i18n }}</h2>
+        <p>{{ 'Review and update your listed items.' | i18n }}</p>
+      </div>
+
+      <label class="search-box">
+        <span>⌕</span>
+        <input
+          type="search"
+          [ngModel]="search()" (ngModelChange)="search.set($event)"
+          [placeholder]="'Search items...' | i18n"
+          [attr.aria-label]="'Search items...' | i18n"
+        />
+      </label>
+    </div>
+
+    <div *ngIf="loading()" class="empty-state">
+      <span class="loading-dot"></span>
+      {{ 'Loading items...' | i18n }}
+    </div>
+
+    <div class="table-wrapper" *ngIf="!loading()">
+      <table *ngIf="filteredItems().length > 0; else noItems">
+        <thead>
+          <tr>
+            <th>{{ 'Items' | i18n }}</th>
+            <th>{{ 'Category' | i18n }}</th>
+            <th>{{ 'Price *' | i18n }}</th>
+            <th>{{ 'Availability' | i18n }}</th>
+            <th>{{ 'Highlight' | i18n }}</th>
+            <th class="actions-heading">{{ 'Actions' | i18n }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of filteredItems(); trackBy: trackById">
+            <td>
+              <div class="item-cell">
+                <div class="item-image">
+                  <img
+                    *ngIf="item.photo"
+                    [src]="'/img/uploades/' + item.photo"
+                    [alt]="item.name | i18n"
+                  />
+                  <span *ngIf="!item.photo">✿</span>
+                </div>
+
+                <div class="item-details">
+                  <strong>{{ item.name | i18n }}</strong>
+                  <span>{{ item.description | i18n }}</span>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <span class="category-label">
+                {{ (item.category?.name || 'Uncategorized') | i18n }}
+              </span>
+            </td>
+
+            <td class="price-cell">{{ item.price | number:'1.2-2' }}</td>
+
+            <td>
+              <span
+                class="status-pill"
+                [class.status-active]="item.isAvailable"
+                [class.status-inactive]="!item.isAvailable"
+              >
+                <span class="status-dot"></span>
+                {{ (item.isAvailable ? 'Available' : 'Unavailable') | i18n }}
+              </span>
+            </td>
+            <td>{{ item.isFeatured ? '✦' : '—' }}</td>
+
+            <td>
+              <div class="row-actions">
+                <button
+                  class="edit-button"
+                  type="button"
+                  (click)="openEdit(item)"
+                >
+                  {{ 'Edit' | i18n }}
+                </button>
+                <button
+                  class="delete-button"
+                  type="button"
+                  (click)="deleteItem(item)"
+                >
+                  {{ 'Delete' | i18n }}
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noItems>
+        <div class="empty-state">
+          <span class="empty-icon">✿</span>
+              <h3>{{ (search() ? 'No matching items' : 'Your menu is empty') | i18n }}</h3>
+          <p>
+            {{
+              search()
+                ? 'Try another search term.'
+                : 'Add your first item to get started.'
+            | i18n }}
+          </p>
+          <button
+            *ngIf="!search()"
+            type="button"
+            class="primary-button"
+            (click)="openCreate()"
+          >
+            {{ 'Add your first item' | i18n }}
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <footer class="table-footer" *ngIf="!loading()">
+      {{ 'Showing' | i18n }} {{ filteredItems().length }} {{ 'of' | i18n }} {{ items().length }} {{ 'Items' | i18n }}
+    </footer>
+  </section>
+
+  <!-- Create / Edit modal -->
+  <div
+    class="modal-backdrop"
+    *ngIf="showForm"
+    (click)="closeForm()"
+  >
+    <section
+      class="item-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="item-form-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="modal-header">
+        <div>
+            <p class="eyebrow">{{ 'MENU ITEM DETAILS' | i18n }}</p>
+          <h2 id="item-form-title">
+            {{ (editingId ? 'Edit item' : 'Add a new item') | i18n }}
+          </h2>
+          <p>{{ 'Add the details guests will see on the menu.' | i18n }}</p>
+        </div>
+
+        <button
+          class="close-button"
+          type="button"
+          (click)="closeForm()"
+          [disabled]="saving()"
+          aria-label="Close form"
+        >×</button>
+      </header>
+
+      <form (ngSubmit)="saveItem()">
+        <div class="form-grid">
+          <label class="form-field full-width">
+            <span>{{ 'Name in English' | i18n }} *</span>
+            <input
+              type="text"
+              name="nameEn"
+              [(ngModel)]="form.nameEn"
+              required
+              maxlength="120"
+              placeholder="e.g. Tomato Seeds"
+            />
+          </label>
+
+          <label class="form-field full-width">
+            <span>{{ 'Name in Arabic' | i18n }} *</span>
+            <input type="text" name="nameAr" [(ngModel)]="form.nameAr" required maxlength="120" dir="rtl" placeholder="مثال: بذور الطماطم" />
+          </label>
+
+          <label class="form-field full-width">
+            <span>{{ 'Description in English' | i18n }}</span>
+            <textarea
+              name="descriptionEn"
+              [(ngModel)]="form.descriptionEn"
+              rows="3"
+              placeholder="Describe the item..."
+            ></textarea>
+          </label>
+
+          <label class="form-field full-width">
+            <span>{{ 'Description in Arabic' | i18n }}</span>
+            <textarea name="descriptionAr" [(ngModel)]="form.descriptionAr" rows="3" dir="rtl" placeholder="اكتب وصف المنتج..."></textarea>
+          </label>
+
+          <label class="form-field">
+            <span>Price *</span>
+            <input
+              type="number"
+              name="price"
+              [(ngModel)]="form.price"
+              min="0"
+              step="0.01"
+              required
+            />
+          </label>
+
+          <label class="form-field full-width">
+            <span>{{ 'Category' | i18n }} *</span>
+            <select
+              name="categoryId"
+              [(ngModel)]="form.categoryId"
+              required
+            >
+              <option value="" disabled>{{ 'Select a category' | i18n }}</option>
+              <option *ngFor="let category of categories()" [value]="category._id">
+                {{ category.name | i18n }}
+              </option>
+            </select>
+
+            <small *ngIf="categories().length === 0">
+              {{ 'No categories found. Create a category before adding an item.' | i18n }}
+            </small>
+          </label>
+
+          <label class="form-field full-width">
+            <span>{{ 'Item photo' | i18n }} {{ editingId ? '(optional replacement)' : '(optional)' }}</span>
+            <input
+              [attr.data-input-key]="photoInputKey"
+              type="file"
+              accept="image/*"
+              (change)="onPhotoSelected($event)"
+            />
+            <small>
+              {{ 'Leave this empty to keep the existing photo when editing.' | i18n }}
+            </small>
+          </label>
+
+          <label class="active-toggle full-width">
+            <input
+              type="checkbox"
+              name="isAvailable"
+              [(ngModel)]="form.isAvailable"
+            />
+            <span>
+              <strong>{{ 'Available to order' | i18n }}</strong>
+              <small>{{ 'Guests can add this dish to an order.' | i18n }}</small>
+            </span>
+          </label>
+          <label class="active-toggle full-width">
+            <input type="checkbox" name="isFeatured" [(ngModel)]="form.isFeatured" />
+            <span><strong>{{ 'House favourite' | i18n }}</strong><small>{{ 'Highlight this dish on the public menu.' | i18n }}</small></span>
+          </label>
+        </div>
+
+        <div class="form-error" *ngIf="error()">{{ error() }}</div>
+
+        <footer class="modal-actions">
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="closeForm()"
+            [disabled]="saving()"
+          >
+            {{ 'Cancel' | i18n }}
+          </button>
+          <button
+            type="submit"
+            class="primary-button"
+            [disabled]="saving() || categories().length === 0"
+          >
+            {{ (saving() ? 'Saving...' : (editingId ? 'Save changes' : 'Create item')) | i18n }}
+          </button>
+        </footer>
+      </form>
+    </section>
+  </div>
+</div>

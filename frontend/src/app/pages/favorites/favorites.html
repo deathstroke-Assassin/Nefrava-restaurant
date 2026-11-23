@@ -1,0 +1,21 @@
+<header class="navbar">
+  <a class="brand" routerLink="/" aria-label="Nefrava home"><img class="brand-logo" src="/nefrava-crest-transparent.png" alt="NEFRAVA" /></a>
+  <nav><a routerLink="/">{{ 'Home' | i18n }}</a><a routerLink="/favorites" class="active">{{ 'Favorites' | i18n }} ({{ store.favorites().length }})</a><a routerLink="/cart">{{ 'Cart' | i18n }} ({{ store.cartCount() }})</a></nav>
+</header>
+<main class="page">
+  <p class="eyebrow">{{ 'YOUR COLLECTION' | i18n }}</p><h1>{{ 'Favorites' | i18n }}</h1>
+  <p class="intro">{{ 'Your saved Nefrava dishes, ready when you are.' | i18n }}</p>
+  <section class="empty" *ngIf="store.favorites().length === 0">
+    <h2>{{ 'No favorites yet' | i18n }}</h2><p>{{ 'Save dishes from the menu and they will appear here.' | i18n }}</p><a class="button" routerLink="/">{{ 'Explore the menu' | i18n }}</a>
+  </section>
+  <section class="grid" *ngIf="store.favorites().length">
+    <article class="card" *ngFor="let item of store.favorites()">
+      <a class="item-link" [routerLink]="['/items', item._id]">
+        <div class="photo"><img [src]="store.photoUrl(item)" [alt]="'Representative Nefrava dish' | i18n" (error)="$any($event.target).style.display='none'"></div>
+        <div class="info"><h2>{{ item.name | i18n }}</h2><p>{{ item.description | i18n }}</p><strong>{{ item.price | number:'1.2-2' }} EGP</strong></div>
+      </a>
+      <div class="actions"><button class="button" (click)="store.addToCart(item)">{{ 'Add to cart' | i18n }}</button><button class="text-button" (click)="store.removeFavorite(item._id)">{{ 'Remove' | i18n }}</button></div>
+    </article>
+  </section>
+</main>
+<app-store-footer></app-store-footer>

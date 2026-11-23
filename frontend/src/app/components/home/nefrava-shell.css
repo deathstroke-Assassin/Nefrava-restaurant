@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+/* Keep the editorial story panel readable and prevent its photo column from
+   collapsing when the page is viewed at tablet widths. */
+.story-section {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-width: 0;
+}
+
+.story-photo,
+.story-copy {
+  min-width: 0;
+}
+
+:host-context(html[data-theme='dark']) .story-section {
+  background: #1b241e !important;
+  color: #e6ecdf;
+}
+
+:host-context(html[data-theme='dark']) .story-copy .eyebrow {
+  color: #d9bd83 !important;
+}
+
+:host-context(html[data-theme='dark']) .story-copy h2 {
+  color: #f2dfb7 !important;
+}
+
+:host-context(html[data-theme='dark']) .story-copy > p:not(.eyebrow) {
+  color: #c1cbbb !important;
+}
+
+:host-context(html[data-theme='dark']) .story-copy .text-link {
+  color: #e0c58d !important;
+  border-color: #c9a66b;
+}
+
+@media (max-width: 1050px) {
+  .story-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .story-photo {
+    min-height: 320px;
+  }
+
+  .story-copy {
+    width: 100%;
+    max-width: none;
+    padding: 48px clamp(24px, 7vw, 80px);
+  }
+}

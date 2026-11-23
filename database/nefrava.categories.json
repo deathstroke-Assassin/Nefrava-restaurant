@@ -1,0 +1,56 @@
+[
+  {
+    "_id": { "$oid": "6a4f00000000000000000001" },
+    "name": { "en": "Egyptian Mezze & Starters", "ar": "مقبلات ومزات مصرية" },
+    "description": { "en": "Traditional Egyptian small plates to begin the meal.", "ar": "أطباق مصرية صغيرة تقليدية لبدء الوجبة." },
+    "photo": "",
+    "isActive": true,
+    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
+    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "6a4f00000000000000000002" },
+    "name": { "en": "Egyptian Classics", "ar": "أطباق مصرية كلاسيكية" },
+    "description": { "en": "Comforting Egyptian favorites prepared with familiar spices and fresh ingredients.", "ar": "أطباق مصرية محبوبة تُحضّر بتوابل مألوفة ومكونات طازجة." },
+    "photo": "",
+    "isActive": true,
+    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
+    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "6a4f00000000000000000003" },
+    "name": { "en": "French Bistro", "ar": "بيسترو فرنسي" },
+    "description": { "en": "French-inspired bistro dishes with a warm, elegant touch.", "ar": "أطباق بيسترو مستوحاة من المطبخ الفرنسي بلمسة دافئة وأنيقة." },
+    "photo": "",
+    "isActive": true,
+    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
+    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "6a4f00000000000000000004" },
+    "name": { "en": "Russian Table", "ar": "المائدة الروسية" },
+    "description": { "en": "Hearty Russian-inspired plates and familiar Eastern European comforts.", "ar": "أطباق مشبعة مستوحاة من المطبخ الروسي وأكلات من أوروبا الشرقية." },
+    "photo": "",
+    "isActive": true,
+    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
+    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "6a4f00000000000000000005" },
+    "name": { "en": "Desserts", "ar": "الحلويات" },
+    "description": { "en": "House desserts bringing together Egyptian, French, and Russian favorites.", "ar": "حلويات المطعم تجمع بين المفضلات المصرية والفرنسية والروسية." },
+    "photo": "",
+    "isActive": true,
+    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
+    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "6a4f00000000000000000006" },
+    "name": { "en": "Drinks", "ar": "المشروبات" },
+    "description": { "en": "Refreshing house drinks, Egyptian classics, and café favorites.", "ar": "مشروبات منعشة من إعداد المطعم، وكلاسيكيات مصرية ومفضلات المقاهي." },
+    "photo": "",
+    "isActive": true,
+    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
+    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  }
+]

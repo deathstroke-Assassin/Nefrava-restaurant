@@ -1,0 +1,45 @@
+<header class="navbar">
+  <a class="brand" routerLink="/" aria-label="Nefrava home"><img class="brand-logo" src="/nefrava-crest-transparent.png" alt="NEFRAVA" /></a>
+  <nav><a routerLink="/">{{ 'Home' | i18n }}</a><a routerLink="/favorites">{{ 'Favorites' | i18n }}</a><a routerLink="/cart">{{ 'Cart' | i18n }}</a></nav>
+</header>
+<main class="page">
+  <a class="back" routerLink="/cart">{{ '← Back to cart' | i18n }}</a><p class="eyebrow">{{ 'SECURE CHECKOUT' | i18n }}</p><h1>{{ 'Checkout' | i18n }}</h1>
+  <p class="intro">{{ (stripeAvailable() ? 'Pay securely through Stripe-hosted checkout, or choose cash on delivery.' : 'Choose cash on delivery to place your order.') | i18n }}</p>
+  <section class="success-card" *ngIf="success() && receipt() as paidReceipt">
+    <p class="eyebrow">{{ 'PAYMENT CONFIRMED' | i18n }}</p>
+    <h2>{{ 'Thank you for your order' | i18n }}</h2>
+    <p>{{ success() }}</p>
+    <p><strong>{{ 'Order reference:' | i18n }}</strong> #{{ paidReceipt.orderId.slice(-6).toUpperCase() }}</p>
+    <p><strong>{{ 'Amount paid:' | i18n }}</strong> {{ paidReceipt.total | number:'1.2-2' }} {{ paidReceipt.currency }}</p>
+    <a class="button" routerLink="/">{{ 'Continue shopping' | i18n }}</a>
+  </section>
+  <p class="success" *ngIf="success() && !receipt()">{{ success() }}</p>
+  <p class="cancel-notice" *ngIf="paymentCancelled()">{{ 'Payment was cancelled. Your order and cart are still available; you can try again or choose cash on delivery.' | i18n }}</p>
+  <p class="pending-notice" *ngIf="verifyingPayment()">{{ 'Verifying your payment with Stripe...' | i18n }}</p>
+  <section class="empty" *ngIf="!success() && store.cart().length === 0"><h2>{{ 'Your cart is empty' | i18n }}</h2><a class="button" routerLink="/">{{ 'Return to shop' | i18n }}</a></section>
+  <div class="checkout" *ngIf="store.cart().length > 0 && !success()">
+    <form (ngSubmit)="submitOrder()">
+      <h2>{{ 'Your details' | i18n }}</h2>
+      <label for="name">{{ 'Full name' | i18n }}</label><input id="name" name="name" required autocomplete="name" [ngModel]="name()" (ngModelChange)="name.set($event)">
+      <label for="phone">{{ 'Phone number' | i18n }}</label><input id="phone" name="phone" type="tel" required autocomplete="tel" [ngModel]="phone()" (ngModelChange)="phone.set($event)">
+      <label for="email">{{ 'Email address (optional)' | i18n }}</label><input id="email" name="email" type="email" autocomplete="email" [ngModel]="email()" (ngModelChange)="email.set($event)">
+      <label for="address">{{ 'Delivery address' | i18n }}</label><textarea id="address" name="address" rows="3" required autocomplete="street-address" [ngModel]="address()" (ngModelChange)="address.set($event)"></textarea>
+      <fieldset class="payment-methods">
+        <legend>{{ 'Payment method' | i18n }}</legend>
+        <label class="payment-option" *ngFor="let method of paymentMethods()">
+          <input type="radio" name="paymentMethod" [value]="method.id" [checked]="paymentMethod() === method.id" (change)="paymentMethod.set(method.id)">
+          <span>{{ method.label | i18n }}</span>
+        </label>
+      </fieldset>
+      <p class="error" *ngIf="error()">{{ error() }}</p>
+      <button class="button" type="submit" [disabled]="submitting() || verifyingPayment()">{{ (submitting() ? 'Submitting order...' : paymentMethod() === 'stripe' ? 'Continue to secure payment' : 'Place order') | i18n }}</button>
+      <p class="phone-note" *ngIf="paymentMethod() === 'cod'">{{ 'We’ll call you to confirm the items and arrange delivery.' | i18n }}</p>
+      <p class="phone-note" *ngIf="paymentMethod() === 'stripe'">{{ 'Card details are entered securely on Stripe and are never stored by this shop.' | i18n }}</p>
+    </form>
+    <aside><h2>{{ 'Order summary' | i18n }}</h2>
+      <div class="summary-line" *ngFor="let item of store.cart()"><span>{{ item.name | i18n }} × {{ item.quantity }}</span><strong>{{ item.price * item.quantity | number:'1.2-2' }} {{ currency() }}</strong></div>
+      <div class="total"><span>{{ 'Total' | i18n }}</span><strong>{{ store.cartTotal() | number:'1.2-2' }} {{ currency() }}</strong></div><a class="back" routerLink="/cart">{{ 'Edit cart' | i18n }}</a>
+    </aside>
+  </div>
+</main>
+<app-store-footer></app-store-footer>

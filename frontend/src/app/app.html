@@ -1,0 +1,9 @@
+<div class="preference-switcher" [attr.dir]="preferences.language() === 'ar' ? 'rtl' : 'ltr'">
+  <button type="button" (click)="preferences.toggleLanguage()" [attr.aria-label]="'Switch language' | i18n">
+    {{ preferences.language() === 'en' ? 'العربية' : 'English' }}
+  </button>
+  <button type="button" (click)="preferences.toggleTheme()" [attr.aria-label]="'Switch theme' | i18n">
+    {{ preferences.theme() === 'light' ? '☾' : '☼' }}
+  </button>
+</div>
+<router-outlet></router-outlet>

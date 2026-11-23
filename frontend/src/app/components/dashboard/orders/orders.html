@@ -1,0 +1,221 @@
+
+<div class="orders-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">{{ 'NEFRAVA / MANAGEMENT' | i18n }}</p>
+      <h1>{{ 'Orders' | i18n }}</h1>
+      <p class="subtitle">{{ 'Manage customer requests and phone deliveries.' | i18n }}</p>
+    </div>
+
+    <button class="refresh-btn" (click)="loadOrders()" [disabled]="loading()">
+      {{ '↻ Refresh' | i18n }}
+    </button>
+  </header>
+
+  <section class="stats">
+    <article class="stat-card">
+      <span class="stat-label">{{ 'All orders' | i18n }}</span>
+      <strong>{{ orders().length }}</strong>
+    </article>
+
+    <article class="stat-card opened-stat">
+      <span class="stat-label">{{ 'Open orders' | i18n }}</span>
+      <strong>{{ openedCount() }}</strong>
+    </article>
+
+    <article class="stat-card closed-stat">
+      <span class="stat-label">{{ 'Closed orders' | i18n }}</span>
+      <strong>{{ closedCount() }}</strong>
+    </article>
+  </section>
+
+  <nav class="filters">
+    <button
+      [class.active]="selectedStatus() === 'all'"
+      (click)="setFilter('all')">
+      {{ 'All orders' | i18n }}
+    </button>
+
+    <button
+      [class.active]="selectedStatus() === 'opened'"
+      (click)="setFilter('opened')">
+      {{ 'Opened' | i18n }}
+    </button>
+
+    <button
+      [class.active]="selectedStatus() === 'closed'"
+      (click)="setFilter('closed')">
+      {{ 'Closed' | i18n }}
+    </button>
+  </nav>
+
+  <p class="message error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+  <p class="message success" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+  <div class="loading" *ngIf="loading()">{{ 'Loading orders...' | i18n }}</div>
+
+  <div class="empty-state" *ngIf="!loading() && filteredOrders().length === 0">
+    <span class="empty-icon">◇</span>
+    <h2>{{ 'No orders found' | i18n }}</h2>
+    <p>{{ 'Orders submitted by customers will appear here.' | i18n }}</p>
+  </div>
+
+  <section class="orders-list" *ngIf="!loading() && filteredOrders().length > 0">
+    <article class="order-card" *ngFor="let order of filteredOrders()">
+      <div class="order-top">
+        <div>
+          <span class="order-number">
+            Order #{{ order._id.slice(-6).toUpperCase() }}
+          </span>
+          <p class="order-date">{{ formatDate(order.createdAt) }}</p>
+        </div>
+
+        <div class="order-badges">
+          <span class="status" [class.opened]="order.status === 'opened'"
+            [class.closed]="order.status === 'closed'">
+            {{ (order.status === 'opened' ? 'Opened' : 'Closed') | i18n }}
+          </span>
+          <span class="payment-method-badge">{{ (order.paymentMethod === 'stripe' ? 'Stripe' : 'Cash on delivery') | i18n }}</span>
+          <span class="payment-status-badge" [class.paid]="order.paymentStatus === 'paid'"
+            [class.pending]="order.paymentStatus === 'pending'"
+            [class.failed]="order.paymentStatus === 'failed'">
+            {{ paymentStatusLabel(order) | i18n }}
+          </span>
+        </div>
+      </div>
+
+      <div class="order-middle">
+        <div>
+          <span class="field-label">{{ 'CUSTOMER' | i18n }}</span>
+          <strong>{{ order.customer.name }}</strong>
+          <span class="muted">{{ order.customer.phone }}</span>
+        </div>
+
+        <div>
+          <span class="field-label">{{ 'ITEMS' | i18n }}</span>
+          <strong>{{ order.items.length }} {{ 'product(s)' | i18n }}</strong>
+          <span class="muted">{{ order.items.reduce(countItems.bind(this), 0) }} {{ 'unit(s)' | i18n }}</span>
+        </div>
+
+        <div>
+          <span class="field-label">{{ 'TOTAL' | i18n }}</span>
+          <strong class="total">{{ order.total | number:'1.2-2' }} EGP</strong>
+        </div>
+      </div>
+
+      <div class="order-bottom">
+        <span class="muted address">{{ order.customer.address }}</span>
+        <button class="details-btn" (click)="openOrder(order)">
+          {{ 'View details →' | i18n }}
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <div class="modal-backdrop" *ngIf="selectedOrder() as selected" (click)="closeDetails()">
+    <section class="order-modal" (click)="$event.stopPropagation()">
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow">{{ 'ORDER DETAILS' | i18n }}</p>
+          <h2>#{{ selected._id.slice(-6).toUpperCase() }}</h2>
+        </div>
+        <button class="close-btn" (click)="closeDetails()">✕</button>
+      </header>
+
+      <div class="customer-panel">
+        <h3>{{ 'Customer information' | i18n }}</h3>
+        <p><strong>{{ 'Name:' | i18n }}</strong> {{ selected.customer.name }}</p>
+        <p>
+          <strong>{{ 'Phone:' | i18n }}</strong>
+          <a [href]="'tel:' + selected.customer.phone">
+            {{ selected.customer.phone }}
+          </a>
+        </p>
+        <p><strong>{{ 'Address:' | i18n }}</strong> {{ selected.customer.address }}</p>
+        <p *ngIf="selected.customer.email"><strong>Email:</strong> <a [href]="'mailto:' + selected.customer.email">{{ selected.customer.email }}</a></p>
+        <p><strong>{{ 'Placed:' | i18n }}</strong> {{ formatDate(selected.createdAt) }}</p>
+      </div>
+
+      <section class="payment-panel">
+        <h3>{{ 'Payment information' | i18n }}</h3>
+        <p><strong>{{ 'Method:' | i18n }}</strong> {{ (selected.paymentMethod === 'stripe' ? 'Stripe hosted checkout' : 'Cash on delivery') | i18n }}</p>
+        <p><strong>{{ 'Payment status:' | i18n }}</strong>
+          <span class="payment-status-badge" [class.paid]="selected.paymentStatus === 'paid'"
+            [class.pending]="selected.paymentStatus === 'pending'"
+            [class.failed]="selected.paymentStatus === 'failed'">
+            {{ paymentStatusLabel(selected) | i18n }}
+          </span>
+        </p>
+        <p *ngIf="selected.stripeDetails?.sessionId"><strong>{{ 'Stripe session:' | i18n }}</strong> <code>{{ selected.stripeDetails?.sessionId }}</code></p>
+      </section>
+
+      <section class="email-panel">
+        <h3>{{ 'Email customer' | i18n }}</h3>
+        <p class="muted" *ngIf="!selected.customer.email">{{ 'No email address was provided with this order.' | i18n }}</p>
+        <ng-container *ngIf="selected.customer.email">
+          <p class="muted">Send to {{ selected.customer.email }}</p>
+          <div class="form-field">
+            <label for="emailSubject">{{ 'Subject' | i18n }}</label>
+            <input id="emailSubject" type="text" maxlength="180" [value]="emailSubject()" (input)="emailSubject.set($any($event.target).value)">
+          </div>
+          <div class="form-field">
+            <label for="emailMessage">{{ 'Message' | i18n }}</label>
+            <textarea id="emailMessage" rows="4" maxlength="5000" [value]="emailMessage()" (input)="emailMessage.set($any($event.target).value)" [placeholder]="'Write a message to the customer...' | i18n"></textarea>
+          </div>
+          <p class="message error" *ngIf="emailError()">{{ emailError() }}</p>
+          <p class="message success" *ngIf="emailSuccess()">{{ emailSuccess() }}</p>
+          <button class="send-email-btn" type="button" (click)="sendCustomerEmail()" [disabled]="sendingEmail()">
+            {{ (sendingEmail() ? 'Sending…' : 'Send email') | i18n }}
+          </button>
+        </ng-container>
+      </section>
+
+      <h3>{{ 'Purchased items' | i18n }}</h3>
+
+      <div class="item-row" *ngFor="let item of selected.items">
+        <div>
+          <strong>{{ item.name | i18n }}</strong>
+          <span class="muted">{{ item.quantity }} × {{ item.price }} EGP</span>
+        </div>
+        <strong>{{ item.quantity * item.price | number:'1.2-2' }} EGP</strong>
+      </div>
+
+      <div class="grand-total">
+        <span>{{ 'Total' | i18n }}</span>
+        <strong>{{ selected.total | number:'1.2-2' }} EGP</strong>
+      </div>
+
+      <div class="form-field">
+        <label for="orderStatus">{{ 'Order status' | i18n }}</label>
+        <select id="orderStatus" [ngModel]="selected.status" (ngModelChange)="setSelectedStatus($event)">
+          <option value="opened">{{ 'Opened' | i18n }}</option>
+          <option value="closed">{{ 'Closed' | i18n }}</option>
+        </select>
+      </div>
+
+              <section class="notes-panel">
+          <h3>{{ 'Order notes' | i18n }}</h3>
+          <p class="notes-empty" *ngIf="selected.notes.length === 0">{{ 'No notes have been added.' | i18n }}</p>
+          <article class="note-entry" *ngFor="let note of selected.notes">
+            <time>{{ formatDate(note.createdAt) }}</time>
+            <p>{{ note.description }}</p>
+          </article>
+          <div class="form-field">
+            <label for="newOrderNote">{{ 'Add a note' | i18n }}</label>
+            <textarea id="newOrderNote" rows="3" [ngModel]="newNote()" (ngModelChange)="newNote.set($event)"
+              [placeholder]="'Add a call update or delivery detail...' | i18n"></textarea>
+          </div>
+        </section>
+
+      <p class="message error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+      <p class="message success" *ngIf="successMessage()">{{ successMessage() }}</p>
+
+      <footer class="modal-actions">
+        <button class="cancel-btn" (click)="closeDetails()">{{ 'Cancel' | i18n }}</button>
+        <button class="save-btn" (click)="saveOrder()" [disabled]="saving()">
+          {{ (saving() ? 'Saving...' : 'Save changes') | i18n }}
+        </button>
+      </footer>
+    </section>
+  </div>
+</div>

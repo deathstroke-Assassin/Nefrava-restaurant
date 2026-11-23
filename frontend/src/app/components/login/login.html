@@ -1,0 +1,75 @@
+
+<div class="login-page">
+  <div class="restaurant-bg"></div>
+
+  <section class="login-card">
+    <div class="brand">
+      <div class="brand-icon">N</div>
+      <span>NEFRAVA</span>
+    </div>
+
+    <div class="welcome">
+      <p class="eyebrow">{{ 'RESTAURANT MANAGEMENT' | i18n }}</p>
+      <h1>{{ 'Welcome back' | i18n }}<span>.</span></h1>
+      <p class="subtitle">
+        {{ 'Your table for the details behind every memorable meal.' | i18n }}
+      </p>
+    </div>
+
+ 
+<form (ngSubmit)="login()" #loginForm="ngForm">
+  <div class="form-group">
+    <label for="username">{{ 'Username' | i18n }}</label>
+    <input
+      id="username"
+      name="username"
+      type="text"
+      [(ngModel)]="username"
+      autocomplete="username"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="password">{{ 'Password' | i18n }}</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="password"
+      autocomplete="current-password"
+      required
+    />
+  </div>
+
+  <p class="error-message" *ngIf="error()">
+    {{ error() }}
+  </p>
+
+  <button type="submit" [disabled]="loginForm.invalid || loading">
+    {{ (loading ? 'Signing in...' : 'Sign in to workspace') | i18n }}
+    <span aria-hidden="true">↗</span>
+  </button>
+</form>
+
+    <div class="login-footer">
+      <span class="status-dot"></span>
+      <span>{{ 'The Art of Tradition, Served with Elegance.' | i18n }}</span>
+    </div>
+  </section>
+
+  <aside class="side-panel">
+    <div class="side-label">{{ 'GATHER · TASTE · REMEMBER' | i18n }}</div>
+    <div class="side-copy">
+      <span class="decorative-line"></span>
+      <h2>{{ 'Every gathering' | i18n }}<br />{{ 'begins at the' | i18n }}<br /><em>{{ 'table.' | i18n }}</em></h2>
+      <p>
+        {{ 'A place where Egyptian warmth meets French elegance and a touch of Russian tradition.' | i18n }}
+      </p>
+    </div>
+    <div class="side-bottom">
+      <span>THE ART OF TRADITION</span>
+      <span>EST. 2026</span>
+    </div>
+  </aside>
+</div>

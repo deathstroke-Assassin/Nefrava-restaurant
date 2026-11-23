@@ -1,0 +1,223 @@
+
+<div class="categories-page">
+  <header class="page-header">
+    <div>
+      <a routerLink="/dashboard" class="back-link">{{ 'Dashboard' | i18n }} →</a>
+      <p class="eyebrow">{{ 'STORE ORGANIZATION' | i18n }}</p>
+      <h1>{{ 'Categories' | i18n }} <span class="title-leaf">✿</span></h1>
+      <p class="page-description">
+        {{ 'Organize the restaurant menu into clear categories.' | i18n }}
+      </p>
+    </div>
+
+    <button class="primary-button" type="button" (click)="openCreate()">
+      {{ '＋ Add category' | i18n }}
+    </button>
+  </header>
+
+  <div class="notice error-notice" *ngIf="error()">
+    {{ error() | i18n }}
+    <button type="button" (click)="error.set('')">×</button>
+  </div>
+
+  <div class="notice success-notice" *ngIf="success">
+    {{ success | i18n }}
+    <button type="button" (click)="success = ''">×</button>
+  </div>
+
+  <section class="summary-grid">
+    <article class="summary-card">
+      <span class="summary-label">{{ 'Total categories' | i18n }}</span>
+      <strong>{{ categories.length }}</strong>
+      <span class="summary-note">{{ 'Your store\'s organization' | i18n }}</span>
+    </article>
+
+    <article class="summary-card">
+      <span class="summary-label">{{ 'Search results' | i18n }}</span>
+      <strong>{{ filteredCategories.length }}</strong>
+      <span class="summary-note">{{ 'Matching categories' | i18n }}</span>
+    </article>
+  </section>
+
+  <section class="categories-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>{{ 'Your categories' | i18n }}</h2>
+        <p>{{ 'Create and maintain your product categories.' | i18n }}</p>
+      </div>
+
+      <label class="search-box">
+        <span>⌕</span>
+        <input
+          type="search"
+          [(ngModel)]="search"
+          [placeholder]="'Search categories...' | i18n"
+          [attr.aria-label]="'Search categories...' | i18n"
+        />
+      </label>
+    </div>
+
+    <div class="empty-state" *ngIf="loading()">
+      {{ 'Loading categories...' | i18n }}
+    </div>
+
+    <div class="table-wrapper" *ngIf="!loading()">
+      <table *ngIf="filteredCategories.length; else noCategories">
+        <thead>
+          <tr>
+            <th>{{ 'Category' | i18n }}</th>
+            <th>{{ 'Description' | i18n }}</th>
+            <th>{{ 'Last updated' | i18n }}</th>
+            <th class="actions-heading">{{ 'Actions' | i18n }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let category of filteredCategories; trackBy: trackById">
+            <td>
+              <div class="category-cell">
+                <span class="category-icon">✿</span>
+                <strong>{{ category.name | i18n }}</strong>
+              </div>
+            </td>
+
+            <td class="description-cell">
+              {{ category.description | i18n }}
+            </td>
+
+            <td class="date-cell">
+              {{ category.updatedAt ? (category.updatedAt | date:'mediumDate') : '—' }}
+            </td>
+
+            <td>
+              <div class="row-actions">
+              <button
+                  type="button"
+                  class="edit-button"
+                  (click)="openEdit(category)"
+                >{{ 'Edit' | i18n }}</button>
+
+                <button
+                  type="button"
+                  class="delete-button"
+                  (click)="deleteCategory(category)"
+                >{{ 'Delete' | i18n }}</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noCategories>
+        <div class="empty-state">
+          <span class="empty-icon">✿</span>
+          <h3>{{ (search ? 'No matching categories' : 'No categories yet') | i18n }}</h3>
+          <p>
+            {{
+              search
+                ? 'Try a different search term.'
+                : 'Create your first category to organize the menu.'
+            | i18n }}
+          </p>
+          <button
+            *ngIf="!search"
+            type="button"
+            class="primary-button"
+            (click)="openCreate()"
+          >
+            {{ 'Add your first category' | i18n }}
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <footer class="table-footer" *ngIf="!loading()">
+      {{ 'Showing' | i18n }} {{ filteredCategories.length }} {{ 'of' | i18n }} {{ categories.length }} {{ 'categories' | i18n }}
+    </footer>
+  </section>
+
+  <div class="modal-backdrop" *ngIf="showForm" (click)="closeForm()">
+    <section
+      class="category-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="category-form-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow">{{ 'CATEGORY DETAILS' | i18n }}</p>
+          <h2 id="category-form-title">
+            {{ (editingId ? 'Edit category' : 'Create a category') | i18n }}
+          </h2>
+          <p>{{ 'Give this category a clear name and description.' | i18n }}</p>
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeForm()"
+          [disabled]="saving"
+          aria-label="Close form"
+        >×</button>
+      </header>
+
+      <form (ngSubmit)="saveCategory()">
+        <label class="form-field">
+          <span>{{ 'Name in English' | i18n }} *</span>
+          <input
+            type="text"
+            name="nameEn"
+            [(ngModel)]="form.nameEn"
+            required
+            maxlength="100"
+            placeholder="e.g. Seeds & Propagation"
+          />
+        </label>
+
+        <label class="form-field">
+          <span>{{ 'Name in Arabic' | i18n }} *</span>
+          <input type="text" name="nameAr" [(ngModel)]="form.nameAr" required maxlength="100" dir="rtl" placeholder="مثال: البذور والإكثار" />
+        </label>
+
+        <label class="form-field">
+          <span>{{ 'Description in English' | i18n }}</span>
+          <textarea
+            name="descriptionEn"
+            [(ngModel)]="form.descriptionEn"
+            rows="4"
+            placeholder="What products belong in this category?"
+          ></textarea>
+        </label>
+
+        <label class="form-field">
+          <span>{{ 'Description in Arabic' | i18n }}</span>
+          <textarea name="descriptionAr" [(ngModel)]="form.descriptionAr" rows="4" dir="rtl" placeholder="ما المنتجات التي تنتمي إلى هذه الفئة؟"></textarea>
+        </label>
+
+        <div class="form-error" *ngIf="error()">{{ error() }}</div>
+
+        <footer class="modal-actions">
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="closeForm()"
+            [disabled]="saving"
+          >{{ 'Cancel' | i18n }}</button>
+
+          <button
+            type="submit"
+            class="primary-button"
+            [disabled]="saving"
+          >
+            {{
+              saving
+                ? 'Saving...'
+                : (editingId ? 'Save changes' : 'Create category')
+            | i18n }}
+          </button>
+        </footer>
+      </form>
+    </section>
+  </div>
+</div>

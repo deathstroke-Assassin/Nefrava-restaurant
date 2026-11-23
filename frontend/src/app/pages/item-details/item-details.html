@@ -1,0 +1,65 @@
+
+<header class="navbar">
+  <a class="brand" routerLink="/">
+    <img class="brand-logo" src="/nefrava-crest-transparent.png" alt="Nefrava — The Art of Tradition, Served with Elegance" />
+  </a>
+
+  <nav>
+    <a routerLink="/">{{ 'Home' | i18n }}</a>
+    <a routerLink="/" fragment="menu">{{ 'Menu' | i18n }}</a>
+    <a routerLink="/favorites">{{ 'Favorites' | i18n }} ({{ store.favorites().length }})</a>
+    <a routerLink="/cart">{{ 'Cart' | i18n }} ({{ store.cartCount() }})</a>
+  </nav>
+</header>
+
+<main class="details-page">
+  <a class="back-link" routerLink="/">
+    {{ '← Back to menu' | i18n }}
+  </a>
+
+  <p *ngIf="loading()" class="status-message">
+        {{ 'Loading dish details...' | i18n }}
+  </p>
+
+  <section *ngIf="error()" class="status-message error">
+    <p>{{ error() | i18n }}</p>
+    <a routerLink="/">{{ 'Return to shop' | i18n }}</a>
+  </section>
+
+  <article
+    *ngIf="!loading() && item() as product"
+    class="item-details"
+  >
+    <div class="item-image">
+      <img
+        *ngIf="photoUrl"
+        [src]="photoUrl"
+        [alt]="product.name"
+        (error)="$any($event.target).style.display = 'none'"
+      />
+    </div>
+
+    <div class="item-info">
+      <p class="eyebrow">{{ (product.category?.name || 'NEFRAVA MENU') | i18n }}</p>
+
+      <h1>{{ product.name | i18n }}</h1>
+
+      <p class="price">
+        {{ product.price | currency:'EGP ':'symbol':'1.2-2' }}
+      </p>
+
+      <div class="description">
+        <h2>{{ 'About this dish' | i18n }}</h2>
+        <p>{{ (product.description || 'No description available.') | i18n }}</p>
+      </div>
+
+      <div class="shop-actions">
+        <button type="button" (click)="toggleFavorite(product)">{{ (store.isFavorite(product._id) ? '♥ Remove from favorites' : '♡ Add to favorites') | i18n }}</button>
+        <button type="button" [disabled]="product.isAvailable === false" (click)="addToCart(product)">{{ product.isAvailable === false ? ('Currently unavailable' | i18n) : ('Add to cart' | i18n) }}</button>
+        <a routerLink="/cart">{{ 'View cart' | i18n }} ({{ store.cartCount() }})</a>
+      </div>
+      <p *ngIf="product.isAvailable === false" class="status-message error">{{ 'Currently unavailable' | i18n }}</p>
+    </div>
+  </article>
+</main>
+<app-store-footer></app-store-footer>
