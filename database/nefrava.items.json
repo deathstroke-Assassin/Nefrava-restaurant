@@ -1,338 +1,651 @@
-[
-  {
-    "_id": { "$oid": "6a4f10000000000000000001" },
-    "name": { "en": "Koshari Bites", "ar": "لقيمات كشري" },
-    "isFeatured": false,
-    "description": { "en": "Crisp rice-and-lentil bites with spiced tomato sauce and fried onions.", "ar": "لقيمات مقرمشة من الأرز والعدس مع صلصة طماطم متبلة وبصل مقلي." },
-    "price": 145,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000001" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 15,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+[{
+  "_id": {
+    "$oid": "6a4f10000000000000000001"
   },
-  {
-    "_id": { "$oid": "6a4f10000000000000000002" },
-    "name": { "en": "Baba Ghanoush with Baladi Bread", "ar": "بابا غنوج مع خبز بلدي" },
-    "isFeatured": false,
-    "description": { "en": "Smoky roasted eggplant whipped with tahini, lemon, and parsley.", "ar": "باذنجان مشوي مدخن يُخلط مع الطحينة والليمون والبقدونس." },
-    "price": 125,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000001" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 10,
-    "dietaryTags": ["vegetarian", "vegan"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  "name": {
+    "en": "Koshari Bites",
+    "ar": "لقيمات كشري"
   },
-  {
-    "_id": { "$oid": "6a4f10000000000000000003" },
-    "name": { "en": "Alexandrian Liver", "ar": "كبدة إسكندراني" },
-    "isFeatured": false,
-    "description": { "en": "Sizzling beef liver with garlic, cumin, peppers, and a touch of chili.", "ar": "شرائح كبدة بقري ساخنة مع الثوم والكمون والفلفل ولمسة من الشطة." },
-    "price": 210,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000001" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 18,
-    "dietaryTags": ["spicy"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  "description": {
+    "en": "Crisp rice-and-lentil bites with spiced tomato sauce and fried onions.",
+    "ar": "لقيمات مقرمشة من الأرز والعدس مع صلصة طماطم متبلة وبصل مقلي."
   },
-  {
-    "_id": { "$oid": "6a4f10000000000000000004" },
-    "name": { "en": "Classic Ful Medames", "ar": "فول مدمس كلاسيكي" },
-    "isFeatured": false,
-    "description": { "en": "Slow-cooked fava beans with olive oil, lemon, cumin, and warm baladi bread.", "ar": "فول مدمس على مهل مع زيت الزيتون والليمون والكمون وخبز بلدي ساخن." },
-    "price": 115,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000002" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 12,
-    "dietaryTags": ["vegetarian", "vegan"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  "price": 145,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000001"
   },
-  {
-    "_id": { "$oid": "6a4f10000000000000000005" },
-    "name": { "en": "Nefrava Koshari", "ar": "كشري نيفرافا" },
-    "description": { "en": "Rice, lentils, pasta, chickpeas, crisp onions, and our slow-simmered tomato sauce.", "ar": "أرز وعدس ومكرونة وحمص وبصل مقرمش مع صلصة الطماطم المطهوة على مهل." },
-    "price": 185,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000002" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "isFeatured": true,
-    "prepTimeMinutes": 20,
-    "dietaryTags": ["vegetarian", "vegan"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 15,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
   },
-  {
-    "_id": { "$oid": "6a4f10000000000000000006" },
-    "name": { "en": "Molokhia with Roasted Chicken", "ar": "ملوخية مع دجاج مشوي" },
-    "isFeatured": false,
-    "description": { "en": "Silky molokhia with garlic and coriander, served with roasted chicken and rice.", "ar": "ملوخية ناعمة بالثوم والكزبرة، تُقدم مع دجاج مشوي وأرز." },
-    "price": 315,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000002" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 30,
-    "dietaryTags": [],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000007" },
-    "name": { "en": "Beef Kofta with Tahini", "ar": "كفتة بقري بالطحينة" },
-    "isFeatured": false,
-    "description": { "en": "Charcoal-grilled beef kofta with tahini, grilled tomato, and herbed rice.", "ar": "كفتة بقري مشوية على الفحم مع الطحينة والطماطم المشوية وأرز بالأعشاب." },
-    "price": 365,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000002" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 28,
-    "dietaryTags": [],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000008" },
-    "name": { "en": "Mushroom Vol-au-Vent", "ar": "فول أو فانت بالفطر" },
-    "isFeatured": false,
-    "description": { "en": "Buttery puff pastry filled with creamy mushrooms and fresh thyme.", "ar": "عجينة مورقة بالزبدة محشوة بفطر كريمي وزعتر طازج." },
-    "price": 245,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000003" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 22,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000009" },
-    "name": { "en": "French Onion Soup", "ar": "حساء البصل الفرنسي" },
-    "isFeatured": false,
-    "description": { "en": "Slow-caramelized onions in rich broth, finished with toasted bread and melted cheese.", "ar": "بصل مكرمل على مهل في مرق غني، يُقدم مع خبز محمص وجبن ذائب." },
-    "price": 220,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000003" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 18,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f1000000000000000000a" },
-    "name": { "en": "Chicken Cordon Bleu", "ar": "دجاج كوردون بلو" },
-    "isFeatured": false,
-    "description": { "en": "Crisp chicken breast layered with smoked turkey and cheese, served with mustard cream.", "ar": "صدر دجاج مقرمش محشو بشرائح الديك الرومي المدخن والجبن، مع كريمة الخردل." },
-    "price": 395,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000003" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 30,
-    "dietaryTags": [],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f1000000000000000000b" },
-    "name": { "en": "Beef Stroganoff", "ar": "بيف ستروجانوف" },
-    "description": { "en": "Tender beef in a creamy mushroom sauce, served with buttered noodles.", "ar": "لحم بقري طري في صلصة كريمية بالفطر، يُقدم مع نودلز بالزبدة." },
-    "price": 425,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000004" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "isFeatured": true,
-    "prepTimeMinutes": 32,
-    "dietaryTags": [],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f1000000000000000000c" },
-    "name": { "en": "Chicken Kiev", "ar": "دجاج كييف" },
-    "isFeatured": false,
-    "description": { "en": "Golden breaded chicken filled with garlic-herb butter, served with potato purée.", "ar": "دجاج مغلف بالبقسماط الذهبي ومحشو بزبدة الثوم والأعشاب، مع بيوريه البطاطس." },
-    "price": 380,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000004" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 30,
-    "dietaryTags": [],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f1000000000000000000d" },
-    "name": { "en": "Beetroot & Potato Salad", "ar": "سلطة البنجر والبطاطس" },
-    "isFeatured": false,
-    "description": { "en": "A Russian-style chilled salad of beetroot, potato, pickles, and dill dressing.", "ar": "سلطة باردة على الطريقة الروسية من البنجر والبطاطس والمخلل وتتبيلة الشبت." },
-    "price": 185,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000004" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 12,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f1000000000000000000e" },
-    "name": { "en": "Syrniki with Honey", "ar": "سيرنيكي بالعسل" },
-    "isFeatured": false,
-    "description": { "en": "Pan-fried Russian cottage-cheese cakes served with honey and seasonal fruit.", "ar": "أقراص جبن قريش روسية محمرة في المقلاة، تُقدم مع العسل وفاكهة الموسم." },
-    "price": 210,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000004" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 18,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f1000000000000000000f" },
-    "name": { "en": "Basbousa with Cream", "ar": "بسبوسة بالقشطة" },
-    "isFeatured": false,
-    "description": { "en": "Semolina cake soaked in light syrup and topped with rich cream.", "ar": "كعكة سميد مشربة بشراب خفيف ومغطاة بقشطة غنية." },
-    "price": 145,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000005" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 8,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000010" },
-    "name": { "en": "Crème Brûlée", "ar": "كريم بروليه" },
-    "isFeatured": false,
-    "description": { "en": "Classic vanilla custard with a delicate caramelized sugar crust.", "ar": "كاسترد فانيليا كلاسيكي مغطى بطبقة رقيقة من السكر المكرمل." },
-    "price": 195,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000005" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 7,
-    "dietaryTags": ["vegetarian", "gluten-free"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000011" },
-    "name": { "en": "Medovik Honey Cake", "ar": "كيكة ميدوفيك بالعسل" },
-    "isFeatured": false,
-    "description": { "en": "Russian honey layer cake softened with a light sour-cream filling.", "ar": "كيكة روسية بطبقات العسل مع حشوة خفيفة من القشدة الحامضة." },
-    "price": 205,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000005" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 8,
-    "dietaryTags": ["vegetarian"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000012" },
-    "name": { "en": "Om Ali", "ar": "أم علي" },
-    "description": { "en": "Warm flaky pastry pudding with milk, raisins, coconut, and toasted nuts.", "ar": "حلوى دافئة من رقائق العجين بالحليب والزبيب وجوز الهند والمكسرات المحمصة." },
-    "price": 175,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000005" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "isFeatured": true,
-    "prepTimeMinutes": 12,
-    "dietaryTags": ["vegetarian", "contains-nuts"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000013" },
-    "name": { "en": "Hibiscus Iced Tea", "ar": "شاي كركديه مثلج" },
-    "isFeatured": false,
-    "description": { "en": "Bright Egyptian hibiscus steeped and served chilled with fresh citrus.", "ar": "كركديه مصري بلونه الزاهي يُنقع ويُقدم بارداً مع الحمضيات الطازجة." },
-    "price": 95,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000006" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 5,
-    "dietaryTags": ["vegetarian", "vegan", "gluten-free"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000014" },
-    "name": { "en": "Mint Lemonade", "ar": "ليمون بالنعناع" },
-    "isFeatured": false,
-    "description": { "en": "Freshly squeezed lemon blended with mint and a touch of sweetness.", "ar": "ليمون طازج مع النعناع ولمسة من الحلاوة." },
-    "price": 110,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000006" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 6,
-    "dietaryTags": ["vegetarian", "vegan", "gluten-free"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
-  },
-  {
-    "_id": { "$oid": "6a4f10000000000000000015" },
-    "name": { "en": "French Press Coffee", "ar": "قهوة فرنش برس" },
-    "isFeatured": false,
-    "description": { "en": "Freshly pressed single-origin coffee served black or with milk.", "ar": "قهوة طازجة محضرة بالفرنش برس، تُقدم سادة أو بالحليب." },
-    "price": 120,
-    "currency": "EGP",
-    "categoryId": { "$oid": "6a4f00000000000000000006" },
-    "photo": "",
-    "isActive": true,
-    "isAvailable": true,
-    "prepTimeMinutes": 6,
-    "dietaryTags": ["vegetarian", "vegan-option"],
-    "createdAt": { "$date": "2026-11-23T12:00:00.000Z" },
-    "updatedAt": { "$date": "2026-11-23T12:00:00.000Z" }
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
   }
-]
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000002"
+  },
+  "name": {
+    "en": "Baba Ghanoush with Baladi Bread",
+    "ar": "بابا غنوج مع خبز بلدي"
+  },
+  "description": {
+    "en": "Smoky roasted eggplant whipped with tahini, lemon, and parsley.",
+    "ar": "باذنجان مشوي مدخن يُخلط مع الطحينة والليمون والبقدونس."
+  },
+  "price": 125,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000001"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 10,
+  "dietaryTags": [
+    "vegetarian",
+    "vegan"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000003"
+  },
+  "name": {
+    "en": "Alexandrian Liver",
+    "ar": "كبدة إسكندراني"
+  },
+  "description": {
+    "en": "Sizzling beef liver with garlic, cumin, peppers, and a touch of chili.",
+    "ar": "شرائح كبدة بقري ساخنة مع الثوم والكمون والفلفل ولمسة من الشطة."
+  },
+  "price": 210,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000001"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 18,
+  "dietaryTags": [
+    "spicy"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000004"
+  },
+  "name": {
+    "en": "Classic Ful Medames",
+    "ar": "فول مدمس كلاسيكي"
+  },
+  "description": {
+    "en": "Slow-cooked fava beans with olive oil, lemon, cumin, and warm baladi bread.",
+    "ar": "فول مدمس على مهل مع زيت الزيتون والليمون والكمون وخبز بلدي ساخن."
+  },
+  "price": 115,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000002"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 12,
+  "dietaryTags": [
+    "vegetarian",
+    "vegan"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000005"
+  },
+  "name": {
+    "en": "Nefrava Koshari",
+    "ar": "كشري نيفرافا"
+  },
+  "description": {
+    "en": "Rice, lentils, pasta, chickpeas, crisp onions, and our slow-simmered tomato sauce.",
+    "ar": "أرز وعدس ومكرونة وحمص وبصل مقرمش مع صلصة الطماطم المطهوة على مهل."
+  },
+  "price": 185,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000002"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 20,
+  "dietaryTags": [
+    "vegetarian",
+    "vegan"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000006"
+  },
+  "name": {
+    "en": "Molokhia with Roasted Chicken",
+    "ar": "ملوخية مع دجاج مشوي"
+  },
+  "description": {
+    "en": "Silky molokhia with garlic and coriander, served with roasted chicken and rice.",
+    "ar": "ملوخية ناعمة بالثوم والكزبرة، تُقدم مع دجاج مشوي وأرز."
+  },
+  "price": 315,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000002"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 30,
+  "dietaryTags": [],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000007"
+  },
+  "name": {
+    "en": "Beef Kofta with Tahini",
+    "ar": "كفتة بقري بالطحينة"
+  },
+  "description": {
+    "en": "Charcoal-grilled beef kofta with tahini, grilled tomato, and herbed rice.",
+    "ar": "كفتة بقري مشوية على الفحم مع الطحينة والطماطم المشوية وأرز بالأعشاب."
+  },
+  "price": 365,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000002"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 28,
+  "dietaryTags": [],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000008"
+  },
+  "name": {
+    "en": "Mushroom Vol-au-Vent",
+    "ar": "فول أو فانت بالفطر"
+  },
+  "description": {
+    "en": "Buttery puff pastry filled with creamy mushrooms and fresh thyme.",
+    "ar": "عجينة مورقة بالزبدة محشوة بفطر كريمي وزعتر طازج."
+  },
+  "price": 245,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000003"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 22,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000009"
+  },
+  "name": {
+    "en": "French Onion Soup",
+    "ar": "حساء البصل الفرنسي"
+  },
+  "description": {
+    "en": "Slow-caramelized onions in rich broth, finished with toasted bread and melted cheese.",
+    "ar": "بصل مكرمل على مهل في مرق غني، يُقدم مع خبز محمص وجبن ذائب."
+  },
+  "price": 220,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000003"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 18,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1000000000000000000a"
+  },
+  "name": {
+    "en": "Chicken Cordon Bleu",
+    "ar": "دجاج كوردون بلو"
+  },
+  "description": {
+    "en": "Crisp chicken breast layered with smoked turkey and cheese, served with mustard cream.",
+    "ar": "صدر دجاج مقرمش محشو بشرائح الديك الرومي المدخن والجبن، مع كريمة الخردل."
+  },
+  "price": 395,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000003"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 30,
+  "dietaryTags": [],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1000000000000000000b"
+  },
+  "name": {
+    "en": "Beef Stroganoff",
+    "ar": "بيف ستروجانوف"
+  },
+  "description": {
+    "en": "Tender beef in a creamy mushroom sauce, served with buttered noodles.",
+    "ar": "لحم بقري طري في صلصة كريمية بالفطر، يُقدم مع نودلز بالزبدة."
+  },
+  "price": 425,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000004"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 32,
+  "dietaryTags": [],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1000000000000000000c"
+  },
+  "name": {
+    "en": "Chicken Kiev",
+    "ar": "دجاج كييف"
+  },
+  "description": {
+    "en": "Golden breaded chicken filled with garlic-herb butter, served with potato purée.",
+    "ar": "دجاج مغلف بالبقسماط الذهبي ومحشو بزبدة الثوم والأعشاب، مع بيوريه البطاطس."
+  },
+  "price": 380,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000004"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 30,
+  "dietaryTags": [],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1000000000000000000d"
+  },
+  "name": {
+    "en": "Beetroot & Potato Salad",
+    "ar": "سلطة البنجر والبطاطس"
+  },
+  "description": {
+    "en": "A Russian-style chilled salad of beetroot, potato, pickles, and dill dressing.",
+    "ar": "سلطة باردة على الطريقة الروسية من البنجر والبطاطس والمخلل وتتبيلة الشبت."
+  },
+  "price": 185,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000004"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 12,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1000000000000000000e"
+  },
+  "name": {
+    "en": "Syrniki with Honey",
+    "ar": "سيرنيكي بالعسل"
+  },
+  "description": {
+    "en": "Pan-fried Russian cottage-cheese cakes served with honey and seasonal fruit.",
+    "ar": "أقراص جبن قريش روسية محمرة في المقلاة، تُقدم مع العسل وفاكهة الموسم."
+  },
+  "price": 210,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000004"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 18,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1000000000000000000f"
+  },
+  "name": {
+    "en": "Basbousa with Cream",
+    "ar": "بسبوسة بالقشطة"
+  },
+  "description": {
+    "en": "Semolina cake soaked in light syrup and topped with rich cream.",
+    "ar": "كعكة سميد مشربة بشراب خفيف ومغطاة بقشطة غنية."
+  },
+  "price": 145,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000005"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 8,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000010"
+  },
+  "name": {
+    "en": "Crème Brûlée",
+    "ar": "كريم بروليه"
+  },
+  "description": {
+    "en": "Classic vanilla custard with a delicate caramelized sugar crust.",
+    "ar": "كاسترد فانيليا كلاسيكي مغطى بطبقة رقيقة من السكر المكرمل."
+  },
+  "price": 195,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000005"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 7,
+  "dietaryTags": [
+    "vegetarian",
+    "gluten-free"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000011"
+  },
+  "name": {
+    "en": "Medovik Honey Cake",
+    "ar": "كيكة ميدوفيك بالعسل"
+  },
+  "description": {
+    "en": "Russian honey layer cake softened with a light sour-cream filling.",
+    "ar": "كيكة روسية بطبقات العسل مع حشوة خفيفة من القشدة الحامضة."
+  },
+  "price": 205,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000005"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 8,
+  "dietaryTags": [
+    "vegetarian"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000012"
+  },
+  "name": {
+    "en": "Om Ali",
+    "ar": "أم علي"
+  },
+  "description": {
+    "en": "Warm flaky pastry pudding with milk, raisins, coconut, and toasted nuts.",
+    "ar": "حلوى دافئة من رقائق العجين بالحليب والزبيب وجوز الهند والمكسرات المحمصة."
+  },
+  "price": 175,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000005"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 12,
+  "dietaryTags": [
+    "vegetarian",
+    "contains-nuts"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000013"
+  },
+  "name": {
+    "en": "Hibiscus Iced Tea",
+    "ar": "شاي كركديه مثلج"
+  },
+  "description": {
+    "en": "Bright Egyptian hibiscus steeped and served chilled with fresh citrus.",
+    "ar": "كركديه مصري بلونه الزاهي يُنقع ويُقدم بارداً مع الحمضيات الطازجة."
+  },
+  "price": 95,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000006"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 5,
+  "dietaryTags": [
+    "vegetarian",
+    "vegan",
+    "gluten-free"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000014"
+  },
+  "name": {
+    "en": "Mint Lemonade",
+    "ar": "ليمون بالنعناع"
+  },
+  "description": {
+    "en": "Freshly squeezed lemon blended with mint and a touch of sweetness.",
+    "ar": "ليمون طازج مع النعناع ولمسة من الحلاوة."
+  },
+  "price": 110,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000006"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 6,
+  "dietaryTags": [
+    "vegetarian",
+    "vegan",
+    "gluten-free"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f10000000000000000015"
+  },
+  "name": {
+    "en": "French Press Coffee",
+    "ar": "قهوة فرنش برس"
+  },
+  "description": {
+    "en": "Freshly pressed single-origin coffee served black or with milk.",
+    "ar": "قهوة طازجة محضرة بالفرنش برس، تُقدم سادة أو بالحليب."
+  },
+  "price": 120,
+  "currency": "EGP",
+  "categoryId": {
+    "$oid": "6a4f00000000000000000006"
+  },
+  "photo": "",
+  "isActive": true,
+  "isAvailable": true,
+  "prepTimeMinutes": 6,
+  "dietaryTags": [
+    "vegetarian",
+    "vegan-option"
+  ],
+  "createdAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-11-23T12:00:00.000Z"
+  }
+}]
